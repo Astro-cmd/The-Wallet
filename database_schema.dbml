@@ -1,0 +1,51 @@
+// The Wallet Database Schema
+
+Table Users {
+  id int [pk, increment]
+  username varchar [unique, not null]
+  email varchar [unique, not null]
+  password varchar [not null]
+  phone varchar
+  address varchar
+  profile_picture varchar
+  date_of_birth date
+  is_verified boolean [default: false]
+  created_at timestamp [default: `now()`]
+  last_login timestamp
+}
+
+Table Transactions {
+  id int [pk, increment]
+  user_id int [ref: > Users.id]
+  amount decimal [not null]
+  transaction_type varchar [not null] // income/expense
+  category varchar [not null]
+  description text
+  date timestamp [default: `now()`]
+  is_recurring boolean [default: false]
+  recurring_frequency varchar // daily, weekly, monthly, yearly
+}
+
+Table Budgets {
+  id int [pk, increment]
+  user_id int [ref: > Users.id]
+  name varchar [not null]
+  amount decimal [not null]
+  start_date date
+  end_date date
+  category varchar
+  current_spending decimal [default: 0]
+  is_active boolean [default: true]
+}
+
+Table Goals {
+  id int [pk, increment]
+  user_id int [ref: > Users.id]
+  name varchar [not null]
+  target_amount decimal [not null]
+  current_amount decimal [default: 0]
+  deadline date
+  priority varchar // high, medium, low
+  status varchar [default: 'in_progress'] // in_progress, completed, failed
+  created_at timestamp [default: `now()`]
+}
