@@ -3,6 +3,7 @@ from rest_framework import routers
 from . import views
 
 urlpatterns = [
-    path('budget/', views.BudgetAPiView.as_view(), name = 'budgets')
+    path('budget/', views.BudgetAPiView.as_view(), name = 'budgets'),
+    
 ]
 
